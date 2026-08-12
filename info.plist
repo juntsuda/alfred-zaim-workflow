@@ -1655,6 +1655,6 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 	<key>version</key>
 	<string>1.1.0</string>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/juntsuda/alfred-zaim-workflow</string>
 </dict>
 </plist>
