@@ -18,4 +18,4 @@ zaim_money_cache.json
 __pycache__/
 *.pyc
 
-# ※ lib/ フォルダは依存ライブラリ同梱のため追跡対象（除外しない）
+lib/
