@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.alfred.zaim</string>
+	<string>tk.tsuda.alfred.workflow.zaim</string>
 	<key>category</key>
 	<string>Productivity</string>
 	<key>connections</key>
@@ -105,7 +105,7 @@
 				<key>destinationuid</key>
 				<string>014C4DE2-A38A-43E9-BB69-FC67EDCD8E61</string>
 				<key>modifiers</key>
-				<integer>0</integer>
+				<integer>1048576</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 				<key>vitoclose</key>
@@ -198,7 +198,7 @@
 				<key>modifiersubtext</key>
 				<string></string>
 				<key>vitoclose</key>
-				<false/>
+				<true/>
 			</dict>
 		</array>
 		<key>AE913244-EB37-4A6F-8465-49328C554FB7</key>
@@ -361,7 +361,7 @@
 				<key>destinationuid</key>
 				<string>7225EE31-4E12-47B1-BB2C-5155502E1F82</string>
 				<key>modifiers</key>
-				<integer>0</integer>
+				<integer>1048576</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 				<key>vitoclose</key>
@@ -412,11 +412,9 @@
 				<key>focusedappvariablename</key>
 				<string></string>
 				<key>hotkey</key>
-				<integer>6</integer>
+				<integer>0</integer>
 				<key>hotmod</key>
-				<integer>1572864</integer>
-				<key>hotstring</key>
-				<string>Z</string>
+				<integer>0</integer>
 				<key>leftcursor</key>
 				<false/>
 				<key>modsmode</key>
@@ -513,7 +511,7 @@
 				<key>fontsizing</key>
 				<integer>0</integer>
 				<key>footertext</key>
-				<string>{var:export_format}モード | EnterでActionへ</string>
+				<string>{var:export_format}モード | Command+EnterでActionへ</string>
 				<key>inputfile</key>
 				<string></string>
 				<key>inputtype</key>
@@ -527,7 +525,7 @@
 				<key>spellchecking</key>
 				<integer>0</integer>
 				<key>stackview</key>
-				<false/>
+				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.userinterface.text</string>
@@ -686,8 +684,6 @@
 				<integer>0</integer>
 				<key>escaping</key>
 				<integer>102</integer>
-				<key>keyword</key>
-				<string>zaimd-detail</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -707,7 +703,7 @@
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
-				<string></string>
+				<string>zaimd-detail</string>
 				<key>type</key>
 				<integer>11</integer>
 				<key>withspace</key>
@@ -750,8 +746,6 @@
 				<integer>1</integer>
 				<key>escaping</key>
 				<integer>102</integer>
-				<key>keyword</key>
-				<string>zaim-picker</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -771,7 +765,7 @@
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
-				<string></string>
+				<string>zaim-picker</string>
 				<key>type</key>
 				<integer>11</integer>
 				<key>withspace</key>
@@ -919,6 +913,8 @@ python3 zaim_add.py "{query}"</string>
 				<integer>1</integer>
 				<key>keyword</key>
 				<string>zmexport</string>
+				<key>skipuniversalaction</key>
+				<true/>
 				<key>subtext</key>
 				<string></string>
 				<key>text</key>
@@ -1072,7 +1068,7 @@ python3 zaim_add.py "$1"</string>
 				<key>fontsizing</key>
 				<integer>0</integer>
 				<key>footertext</key>
-				<string>金額 メモ欄</string>
+				<string>金額 メモ欄 | Command+Enterで登録</string>
 				<key>inputfile</key>
 				<string></string>
 				<key>inputtype</key>
@@ -1098,25 +1094,23 @@ python3 zaim_add.py "$1"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
+				<key>lastpathcomponent</key>
 				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>python3 zaim_auth.py pin "$1"</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>11</integer>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>ブラウザで認可後、表示された PIN を pin-zaim PIN で入力してください</string>
+				<key>title</key>
+				<string>Zaim Workflow</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.script</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>05DD88AE-FDA3-47AF-8D54-42D7D910EB96</string>
+			<string>D48CAD7D-9DDC-4906-9D0D-28767235EAE6</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1167,6 +1161,8 @@ python3 zaim_add.py "$1"</string>
 				<integer>0</integer>
 				<key>keyword</key>
 				<string>auth-zaim</string>
+				<key>skipuniversalaction</key>
+				<true/>
 				<key>subtext</key>
 				<string>auth-zaim コンシューマーID コンシューマーシークレット</string>
 				<key>text</key>
@@ -1180,6 +1176,29 @@ python3 zaim_add.py "$1"</string>
 			<string>2A19D048-458F-4FAC-8F11-563B6F9AC0C6</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>python3 zaim_auth.py pin "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>11</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>05DD88AE-FDA3-47AF-8D54-42D7D910EB96</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1207,31 +1226,12 @@ python3 zaim_add.py "$1"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>ブラウザで認可後、表示された PIN を pin-zaim PIN で入力してください</string>
-				<key>title</key>
-				<string>Zaim Workflow</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>D48CAD7D-9DDC-4906-9D0D-28767235EAE6</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
 				<string>pin-zaim</string>
+				<key>skipuniversalaction</key>
+				<true/>
 				<key>subtext</key>
 				<string>zaim-pin PINコード</string>
 				<key>text</key>
@@ -1250,7 +1250,7 @@ python3 zaim_add.py "$1"</string>
 	<key>readme</key>
 	<string># Alfred Zaim Workflow 取扱説明書
 
-Alfred から Zaim への爆速記録・リアルタイム集計・各種ツール連携を行うための高度なワークフローです。
+Alfred から Zaim への高速記録・検索・集計・各種ツール連携を行うための高度なワークフローです。
 キーボード操作のみで日常の家計管理・店舗メモ・編集・タスク化までを完結させます。
 
 ---
@@ -1540,7 +1540,7 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 			<key>xpos</key>
 			<real>70</real>
 			<key>ypos</key>
-			<real>145</real>
+			<real>160</real>
 		</dict>
 		<key>913A6180-9D2E-4DA6-BB03-1BFDA1EE2032</key>
 		<dict>
@@ -1653,7 +1653,7 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 	<key>userconfigurationconfig</key>
 	<array/>
 	<key>version</key>
-	<string>1.1.0</string>
+	<string>1.2.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/juntsuda/alfred-zaim-workflow</string>
 </dict>
