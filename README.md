@@ -5,6 +5,8 @@ Alfred から Zaim への高速記録・検索・集計・各種ツール連携�
 
 ※主に手動入力メイン、メモ欄をしっかり記入している方向けです
 
+![Zaim Workflow 検索画面](./zaim_search.png)
+
 ---
 
 ### ⚙️ 動作要件（Prerequisites）
