@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import calendar
 import csv
@@ -8,97 +9,52 @@ import re
 import sys
 import unicodedata
 
+# 共通API通信モジュールのインポート
+from zaim_api import zaim_request
+
 # ==============================================================================
-# 1. パス & ディレクトリ定義 (環境に依存しない動的判定)
+# 1. パス & キャッシュ設定 (alfred_workflow_data 優先)
 # ==============================================================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(BASE_DIR, "lib"))
+data_dir = os.environ.get("alfred_workflow_data")
+if not data_dir:
+  BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+  data_dir = BASE_DIR
 
-from requests_oauthlib import OAuth1Session
-
-# --- Bundle ID の自動判定 ---
-plist_path = os.path.join(BASE_DIR, "info.plist")
-bundle_id = "com.user.zaim"  # 未設定時のフォールバック
-
-if os.path.exists(plist_path):
-  try:
-    with open(plist_path, "rb") as fp:
-      plist = plistlib.load(fp)
-      if plist.get("bundleid"):
-        bundle_id = plist["bundleid"]
-  except Exception:
-    pass
-
-# --- キャッシュ & 設定ファイルの絶対パス指定 ---
-LOCAL_CACHE_DIR = os.path.expanduser(
-    f"~/Library/Caches/com.runningwithcrayons.Alfred/Workflow Data/{bundle_id}"
-)
+LOCAL_CACHE_DIR = data_dir
 os.makedirs(LOCAL_CACHE_DIR, exist_ok=True)
 
-CONFIG_FILE = os.path.join(BASE_DIR, "config.json")
 CACHE_FILE = os.path.join(LOCAL_CACHE_DIR, "zaim_master_cache.json")
 CACHE_MONEY_FILE = os.path.join(LOCAL_CACHE_DIR, "zaim_money_cache.json")
 
-# --- 定数設定 (TTL・取得期間等) ---
-CACHE_MASTER_TTL = 86400  # マスターデータキャッシュ保持時間（24時間）
-CACHE_MONEY_TTL = 300  # 明細データキャッシュ保持時間（5分）
-DEFAULT_DAYS = 90  # デフォルト取得日数
-
-# --- 定数設定 (エクスポート用) ---
-RTM_DEFAULT_TAGS = "#賞味期限 #食材"  # タグ不要な場合は "" に変更
+DEFAULT_DAYS = 90
+RTM_DEFAULT_TAGS = "#賞味期限 #食材"
 
 # ==============================================================================
-# 2. API 認証 & クライアント初期化
+# 2. 引数解析 & マスターデータロード
 # ==============================================================================
-try:
-  with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-    config = json.load(f)
-except FileNotFoundError:
-  print(
-      json.dumps(
-          {
-              "items": [{
-                  "title": "設定ファイル (config.json) が見つかりません",
-                  "subtitle": "auth-zaim を実行してください",
-                  "valid": False,
-              }]
-          },
-          ensure_ascii=False,
-      )
-  )
-  sys.exit(1)
-
-oauth = OAuth1Session(
-    config["consumer_id"],
-    client_secret=config["consumer_secret"],
-    resource_owner_key=config["access_token"],
-    resource_owner_secret=config["access_token_secret"],
-)
-
-
-# ==============================================================================
-# 3. 個別コード
-# ==============================================================================
-# --- 2. 引数の解析 ---
 parser = argparse.ArgumentParser()
 parser.add_argument("--format", choices=["csv", "text", "rtm"], default="text")
 parser.add_argument("query", nargs="?", default="")
 args = parser.parse_args()
 
-# --- マスターデータのロード ---
-with open(CACHE_FILE, "r", encoding="utf-8") as f:
-  master = json.load(f)
+try:
+  with open(CACHE_FILE, "r", encoding="utf-8") as f:
+    master = json.load(f)
+except Exception:
+  master = {}
 
-cat_map = master.get("categories", {})  # id -> 大項目名
-genre_map = master.get("genres", {})  # id -> "大項目 ＞ 中項目"
-acc_map = master.get("accounts", {})  # id -> 口座名
+cat_map = master.get("categories", {})
+genre_map = master.get("genres", {})
+acc_map = master.get("accounts", {})
 
-# --- クエリのパース (zaim_search.py と完全一致) ---
+# ==============================================================================
+# 3. クエリのパース
+# ==============================================================================
 raw_query_norm = unicodedata.normalize("NFC", args.query.strip())
 tokens = raw_query_norm.split()
 
 keywords = []
-target_mode = None  # payment / income / transfer
+target_mode = None
 start_date_filter = None
 end_date_filter = None
 allow_future = False
@@ -109,15 +65,12 @@ today = datetime.now().date()
 for token in tokens:
   token_lower = token.lower()
   if token_lower.startswith(":"):
-    # モード指定
     if token_lower in [":支出", ":p", ":payment"]:
       target_mode = "payment"
     elif token_lower in [":収入", ":i", ":income"]:
       target_mode = "income"
     elif token_lower in [":振替", ":tr", ":transfer"]:
       target_mode = "transfer"
-
-    # 期間指定
     elif token_lower in [":y", ":yesterday", ":昨日"]:
       yesterday = today - timedelta(days=1)
       start_date_filter = end_date_filter = yesterday.strftime("%Y-%m-%d")
@@ -157,8 +110,6 @@ for token in tokens:
       last_year = today.year - 1
       start_date_filter = f"{last_year}-01-01"
       end_date_filter = f"{last_year}-12-31"
-
-    # 検索対象フィールド絞り込み
     elif token_lower in [":g", ":genre", ":cat", ":ジャンル", ":カテゴリ"]:
       field_target = "genre"
     elif token_lower in [":s", ":shop", ":place", ":店舗", ":場所"]:
@@ -167,13 +118,14 @@ for token in tokens:
       field_target = "account"
     elif token_lower in [":memo", ":comment", ":メモ"]:
       field_target = "memo"
-
   else:
     keywords.append(token_lower)
 
 search_query = " ".join(keywords)
 
-# --- 明細データの取得とフィルタリング ---
+# ==============================================================================
+# 4. 明細データの取得とフィルタリング
+# ==============================================================================
 api_start_date = (
     start_date_filter
     if start_date_filter
@@ -181,13 +133,15 @@ api_start_date = (
 )
 today_str = today.strftime("%Y-%m-%d")
 
-params = {"start_date": api_start_date, "limit": 100}
-response = oauth.get("https://api.zaim.net/v2/home/money", params=params)
-
 filtered_items = []
 
-if response.status_code == 200:
-  money_list = response.json().get("money", [])
+try:
+  res_data = zaim_request(
+      "GET",
+      "https://api.zaim.net/v2/home/money",
+      params={"start_date": api_start_date, "limit": 100},
+  )
+  money_list = res_data.get("money", [])
 
   target_items = [
       item
@@ -230,7 +184,6 @@ if response.status_code == 200:
         "お財布" if to_id_str in ["1", "0", ""] else f"口座未設定({to_id_str})"
     )
 
-    # カテゴリ・ジャンル名のパース
     category_large = cat_map.get(cat_id_str, "-")
     genre_full = genre_map.get(genre_id_str, "")
     if " ＞ " in genre_full:
@@ -240,7 +193,6 @@ if response.status_code == 200:
 
     cat_disp_name = genre_full or category_large
 
-    # フィールド指定判定
     if field_target == "genre":
       search_raw = f"{cat_disp_name}"
     elif field_target == "place":
@@ -271,9 +223,12 @@ if response.status_code == 200:
         "place": raw_place,
         "comment": comment,
     })
+except Exception as e:
+  sys.stderr.write(f"Zaim 取得エラー: {e}\n")
 
-# --- フォーマット別出力処理 ---
-
+# ==============================================================================
+# 5. フォーマット別出力処理
+# ==============================================================================
 if args.format == "csv":
   OFFICIAL_HEADERS = [
       "日付",
@@ -294,7 +249,6 @@ if args.format == "csv":
       "集計の設定",
   ]
 
-  # デスクトップ等へファイル保存する場合は標準出力ではなく直接書き出しも可能
   desktop_dir = os.path.expanduser("~/Desktop")
   filename = f"Zaim.{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
   filepath = os.path.join(desktop_dir, filename)
@@ -324,7 +278,7 @@ if args.format == "csv":
           cat_sub,
           from_a,
           to_a,
-          "",  # 品目
+          "",
           item["comment"],
           place_str,
           "JPY",
@@ -336,7 +290,6 @@ if args.format == "csv":
           "常に集計に含める",
       ])
 
-  # Alfred の通知ノードへメッセージを渡す
   print(f"デスクトップに保存しました:\n{filename}", end="")
 
 elif args.format == "text":
@@ -419,7 +372,6 @@ elif args.format == "rtm":
     if match:
       item_name = match.group(1).strip()
       due_date = match.group(2)
-      # .strip() により RTM_DEFAULT_TAGS が空でも末尾の無駄なスペースが消去される
       line = f"{item_name} ^{due_date} {RTM_DEFAULT_TAGS}".strip()
       rtm_lines.append(line)
     else:
