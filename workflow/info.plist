@@ -73,6 +73,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>44B5E4D6-EA8E-47DE-A37A-9AA61B75A610</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A1EC336B-742A-4CC8-A574-8DBDDB703B35</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>55AA16D8-5CBC-4563-B66F-BA56485213FA</key>
 		<array>
 			<dict>
@@ -201,6 +214,19 @@
 				<true/>
 			</dict>
 		</array>
+		<key>913A6180-9D2E-4DA6-BB03-1BFDA1EE2032</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F0FC1709-EA18-438F-8127-2CD6FBEB8694</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>AE913244-EB37-4A6F-8465-49328C554FB7</key>
 		<array>
 			<dict>
@@ -222,6 +248,18 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>44B5E4D6-EA8E-47DE-A37A-9AA61B75A610</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>B8F121C8-B1E0-4515-A120-F6F900E51B48</string>
 				<key>vitoclose</key>
 				<false/>
 			</dict>
@@ -342,11 +380,37 @@
 				<false/>
 			</dict>
 		</array>
+		<key>EA7CA4F7-418D-4EE6-8B51-ACB439B9CB72</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8DBC1940-C61D-4F7C-A873-F49D0AAD9577</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>EF6E4FF5-D17C-499C-9836-4A067582F9B1</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>E56A8C22-FCC8-48AE-A789-B6B592FFDC2B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>F0FC1709-EA18-438F-8127-2CD6FBEB8694</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6B02E1D1-4486-4482-83C2-B4DA2C2BDF1E</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -382,6 +446,37 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>hotkey</key>
+				<integer>6</integer>
+				<key>hotmod</key>
+				<integer>1572864</integer>
+				<key>hotstring</key>
+				<string>Z</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>7CC026F5-0EC7-44C9-A4FF-6897536039AE</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -399,35 +494,6 @@
 			<string>074E35B9-485E-4F9D-94BB-23F2899FFE2D</string>
 			<key>version</key>
 			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>action</key>
-				<integer>0</integer>
-				<key>argument</key>
-				<integer>0</integer>
-				<key>focusedappvariable</key>
-				<false/>
-				<key>focusedappvariablename</key>
-				<string></string>
-				<key>hotkey</key>
-				<integer>0</integer>
-				<key>hotmod</key>
-				<integer>0</integer>
-				<key>leftcursor</key>
-				<false/>
-				<key>modsmode</key>
-				<integer>0</integer>
-				<key>relatedAppsMode</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.hotkey</string>
-			<key>uid</key>
-			<string>7CC026F5-0EC7-44C9-A4FF-6897536039AE</string>
-			<key>version</key>
-			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -487,23 +553,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>jumpto</key>
-				<string>_popUpItemAction:</string>
-				<key>path</key>
-				<string></string>
-				<key>type</key>
-				<integer>100</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.actioninalfred</string>
-			<key>uid</key>
-			<string>014C4DE2-A38A-43E9-BB69-FC67EDCD8E61</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>behaviour</key>
 				<integer>1</integer>
 				<key>fontmode</key>
@@ -537,6 +586,23 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>jumpto</key>
+				<string>_popUpItemAction:</string>
+				<key>path</key>
+				<string></string>
+				<key>type</key>
+				<integer>100</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.actioninalfred</string>
+			<key>uid</key>
+			<string>014C4DE2-A38A-43E9-BB69-FC67EDCD8E61</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -560,7 +626,7 @@
 				<key>queuemode</key>
 				<integer>1</integer>
 				<key>runningsubtext</key>
-				<string></string>
+				<string>接続中…</string>
 				<key>script</key>
 				<string>python3 zaim_search.py "{query}"</string>
 				<key>scriptargtype</key>
@@ -568,9 +634,9 @@
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string></string>
+				<string>語句、日付 (2026-09-01)、期間 (09-01-09-07)、コマンド (:m, :p)</string>
 				<key>title</key>
-				<string></string>
+				<string>Zaim 履歴検索 [キーワード / 日付 ]</string>
 				<key>type</key>
 				<integer>11</integer>
 				<key>withspace</key>
@@ -654,20 +720,82 @@
 			<key>config</key>
 			<dict>
 				<key>externaltriggerid</key>
-				<string>zaim_detail_trigger</string>
+				<string>zaim_search_trigger</string>
 				<key>passinputasargument</key>
-				<true/>
+				<false/>
 				<key>passvariables</key>
-				<true/>
+				<false/>
 				<key>workflowbundleid</key>
 				<string>self</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.callexternaltrigger</string>
 			<key>uid</key>
-			<string>A1EC336B-742A-4CC8-A574-8DBDDB703B35</string>
+			<string>6B02E1D1-4486-4482-83C2-B4DA2C2BDF1E</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>seconds</key>
+				<string>1.5</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.delay</string>
+			<key>uid</key>
+			<string>F0FC1709-EA18-438F-8127-2CD6FBEB8694</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>python3 zaim_picker.py "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>skipuniversalaction</key>
+				<true/>
+				<key>subtext</key>
+				<string>mode:{var:zaim_action}</string>
+				<key>title</key>
+				<string>zaim-picker</string>
+				<key>type</key>
+				<integer>11</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>D5810E8D-6323-459C-AF56-789E06ABAF00</string>
+			<key>version</key>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -700,6 +828,8 @@
 				<integer>0</integer>
 				<key>scriptfile</key>
 				<string></string>
+				<key>skipuniversalaction</key>
+				<true/>
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
@@ -719,64 +849,21 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>availableviaurlhandler</key>
-				<false/>
-				<key>triggerid</key>
+				<key>externaltriggerid</key>
 				<string>zaim_detail_trigger</string>
+				<key>passinputasargument</key>
+				<true/>
+				<key>passvariables</key>
+				<true/>
+				<key>workflowbundleid</key>
+				<string>self</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.trigger.external</string>
+			<string>alfred.workflow.output.callexternaltrigger</string>
 			<key>uid</key>
-			<string>B7136CA2-90B9-4281-9877-40783558B706</string>
+			<string>A1EC336B-742A-4CC8-A574-8DBDDB703B35</string>
 			<key>version</key>
 			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<true/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<true/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string></string>
-				<key>script</key>
-				<string>python3 zaim_picker.py "$1"</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string></string>
-				<key>title</key>
-				<string>zaim-picker</string>
-				<key>type</key>
-				<integer>11</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>D5810E8D-6323-459C-AF56-789E06ABAF00</string>
-			<key>version</key>
-			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -804,6 +891,36 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>availableviaurlhandler</key>
+				<false/>
+				<key>triggerid</key>
+				<string>zaim_search_trigger</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>EA7CA4F7-418D-4EE6-8B51-ACB439B9CB72</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>availableviaurlhandler</key>
+				<false/>
+				<key>triggerid</key>
+				<string>zaim_detail_trigger</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>B7136CA2-90B9-4281-9877-40783558B706</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>conditions</key>
 				<array>
 					<dict>
@@ -820,6 +937,20 @@
 						<key>uid</key>
 						<string>36BFB1AD-57F4-41CB-8730-DA1CECFCD2E8</string>
 					</dict>
+					<dict>
+						<key>inputstring</key>
+						<string>{var:zaim_action}</string>
+						<key>matchcasesensitive</key>
+						<false/>
+						<key>matchmode</key>
+						<integer>0</integer>
+						<key>matchstring</key>
+						<string>duplicate</string>
+						<key>outputlabel</key>
+						<string>duplicate</string>
+						<key>uid</key>
+						<string>B8F121C8-B1E0-4515-A120-F6F900E51B48</string>
+					</dict>
 				</array>
 				<key>elselabel</key>
 				<string>else</string>
@@ -830,6 +961,69 @@
 			<string>alfred.workflow.utility.conditional</string>
 			<key>uid</key>
 			<string>AE913244-EB37-4A6F-8465-49328C554FB7</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>subtext</key>
+				<string>mode:{var:zaim_action}</string>
+				<key>text</key>
+				<string>内容を編集してください</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>C3EB94B5-E326-4A16-A771-D103AC2353B2</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Zaim Workflow</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>76E2B79C-876E-47AF-985F-528867A94193</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>zmexport</string>
+				<key>skipuniversalaction</key>
+				<true/>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>Zaim ジャンル・口座情報csv書き出し</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>E7E4180C-A08A-4459-9B86-D65B6DA2B01F</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -854,6 +1048,29 @@ python3 zaim_add.py "{query}"</string>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>0F71B2D2-F8D7-4178-A95C-89012C1C3EE0</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>python3 zaim_export_master_full.py</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>11</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>07AD3BAC-3286-4B4A-9F24-23FE5900AA23</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -909,56 +1126,12 @@ python3 zaim_add.py "{query}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>keyword</key>
-				<string>zmexport</string>
-				<key>skipuniversalaction</key>
-				<true/>
-				<key>subtext</key>
-				<string></string>
-				<key>text</key>
-				<string>Zaim ジャンル・口座情報csv書き出し</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>E7E4180C-A08A-4459-9B86-D65B6DA2B01F</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Zaim Workflow</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>76E2B79C-876E-47AF-985F-528867A94193</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>python3 zaim_export_master_full.py</string>
+				<string>python3 zaim_create.py</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -969,7 +1142,7 @@ python3 zaim_add.py "{query}"</string>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>07AD3BAC-3286-4B4A-9F24-23FE5900AA23</string>
+			<string>44B5E4D6-EA8E-47DE-A37A-9AA61B75A610</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -977,39 +1150,20 @@ python3 zaim_add.py "{query}"</string>
 			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
-				<integer>0</integer>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>zam</string>
 				<key>subtext</key>
-				<string></string>
+				<string>入力形式：金額 メモ、複数行対応</string>
 				<key>text</key>
-				<string>内容を編集してください</string>
+				<string>Zaim 一括登録(Text View経由)</string>
 				<key>withspace</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
-			<string>C3EB94B5-E326-4A16-A771-D103AC2353B2</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Zaim Workflow</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>779045F8-879A-4553-835E-0F6507005F54</string>
+			<string>DF256339-E5B1-42F3-87B2-B1E0D082D211</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1036,27 +1190,6 @@ python3 zaim_add.py "$1"</string>
 			<string>7225EE31-4E12-47B1-BB2C-5155502E1F82</string>
 			<key>version</key>
 			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>keyword</key>
-				<string>zam</string>
-				<key>subtext</key>
-				<string>入力形式：金額 メモ、複数行対応</string>
-				<key>text</key>
-				<string>Zaim 一括登録(Text View経由)</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>DF256339-E5B1-42F3-87B2-B1E0D082D211</string>
-			<key>version</key>
-			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1101,35 +1234,14 @@ python3 zaim_add.py "$1"</string>
 				<key>removeextension</key>
 				<false/>
 				<key>text</key>
-				<string>ブラウザで認可後、表示された PIN を pin-zaim PIN で入力してください</string>
+				<string>{query}</string>
 				<key>title</key>
 				<string>Zaim Workflow</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>D48CAD7D-9DDC-4906-9D0D-28767235EAE6</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>初期設定が完了しました</string>
-				<key>title</key>
-				<string>Zaim Workflow</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>B69865FB-13DC-4785-A95E-D61CA37991A6</string>
+			<string>779045F8-879A-4553-835E-0F6507005F54</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1203,6 +1315,50 @@ python3 zaim_add.py "$1"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>pin-zaim</string>
+				<key>skipuniversalaction</key>
+				<true/>
+				<key>subtext</key>
+				<string>zaim-pin PINコード</string>
+				<key>text</key>
+				<string>Zaim PIN認証(認証手順2)</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>C683E11C-F572-4452-B9B4-6F6305BCE6B6</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>初期設定が完了しました</string>
+				<key>title</key>
+				<string>Zaim Workflow</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>B69865FB-13DC-4785-A95E-D61CA37991A6</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -1226,23 +1382,21 @@ python3 zaim_add.py "$1"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>pin-zaim</string>
-				<key>skipuniversalaction</key>
-				<true/>
-				<key>subtext</key>
-				<string>zaim-pin PINコード</string>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
 				<key>text</key>
-				<string>Zaim PIN認証(認証手順2)</string>
-				<key>withspace</key>
-				<true/>
+				<string>ブラウザで認可後、表示された PIN を pin-zaim PIN で入力してください</string>
+				<key>title</key>
+				<string>Zaim Workflow</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>C683E11C-F572-4452-B9B4-6F6305BCE6B6</string>
+			<string>D48CAD7D-9DDC-4906-9D0D-28767235EAE6</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1252,6 +1406,21 @@ python3 zaim_add.py "$1"</string>
 
 Alfred から Zaim への高速記録・検索・集計・各種ツール連携を行うための高度なワークフローです。
 キーボード操作のみで日常の家計管理・店舗メモ・編集・タスク化までを完結させます。
+
+※主に手動入力メイン、メモ欄をしっかり記入している方向けです
+
+
+---
+
+### ⚙️ 動作要件（Prerequisites）
+
+本ワークフローを実行するには、以下の環境が必要です。
+
+* **macOS**
+* **Alfred 5**（要 **Alfred Powerpack** ライセンス）
+* **Python 3.x**
+  * macOS 12.3 以降で Python がインストールされていない場合は、Homebrew（`brew install python3`）や Xcode Command Line Tools（`xcode-select --install`）等で導入してください。
+  * ※外部ライブラリ（`pip install`）の追加導入は一切不要です。
 
 ---
 
@@ -1281,26 +1450,26 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 
 ### 2. 新規登録（Quick &amp; Batch Entry）
 
-単発の爆速入力（`za`）と、買い物後のまとめて入力（`zam`）の 2 パターンに対応しています。
+単発の簡易入力（`za`）と、買い物後のまとめて入力（`zam`）の 2 パターンに対応しています。
 
 #### A. 単発記録（`za`）
 キーボードから数打鍵で明細・行動ログを即座に登録します。
 
-* **基本構文**: `za [金額] [メモ・店舗名]`
+**基本構文**: `za [金額] [メモ・店舗名]`
 
-* **入力例**:
+**入力例**:
 * `za 1200 ラーメンランチ` ➔ 1,200円の支出として登録。
 * `za 0 カフェで読書` ➔ **0円登録機能**。行動ログや移動履歴として記録。
 * `za 3500 居酒屋 新時代` ➔ 全角数字補正・カンマ自動除去。
 
-* **仕様**: デフォルトで「その他支出 ＞ その他」に分類され、登録完了後に自動で詳細・編集画面が開きます。
+**仕様**: デフォルトで「その他支出 ＞ その他」に分類され、登録完了後に自動で詳細・編集画面が開きます。
 
 #### B. 複数一括記録（`zam`）
 レシートやテキストメモから、複数行の明細を一度にまとめて登録します。
 
-* **基本構文**: `zam` を入力して `Enter` ➔ 拡大テキスト入力画面（Text View）が起動。
+**基本構文**: `zam` を入力して `Enter` ➔ 拡大テキスト入力画面（Text View）が起動。
 
-* **入力例**:
+**入力例**:
 * `850 スーパー卵・牛乳`
 * `1200 ドラッグストア日用品`
 * `3500 ガソリン給油`
@@ -1313,12 +1482,21 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 
 ショートカットキー（`Option + Command + Z`）または `zaim` コマンドで直近の明細を検索・閲覧します。
 
-* **基本構文**: `zaim [検索キーワード] [コマンド]`
+検索結果から個別の明細を選択して `Enter` を押すと、詳細画面へ遷移します(詳細画面については後述)。また、Command+Lでメモ欄を拡大表示します。
+
+**基本構文**: `zaim [検索キーワード] [コマンド]`
 *(※ コマンドとキーワードの入力順序は自由です)*
+
+#### 【日付・期間直接指定】
+テキストや Universal Action から選択した日付文字列を渡してピンポイントで絞り込めます。
+* 単日指定 (YYYY-MM-DD): zaim 2026-09-01 ➔ その日の明細のみを抽出
+* 範囲指定 (YYYY-MM-DD-YYYY-MM-DD): zaim 2026-09-01-2026-09-07 ➔ 指定期間の明細を抽出
+  
+(※ 日付の前後関係は自動補正されるため、順序を気にせず入力可能です)
 
 #### 【コマンドフィルター一覧】
 
-* **期間指定コマンド**:
+**期間指定コマンド**:
 * `:t` / `:today` : 今日
 * `:y` / `:yesterday` : 昨日
 * `:w` / `:week` : 今週（月曜日始まり）
@@ -1329,19 +1507,19 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 * `:ty` / `:thisyear` : 今年（1月1日〜本日）
 * `:ly` / `:lastyear` : 昨年全期間
 
-* **種別指定コマンド**:
+**種別指定コマンド**:
 * `:p` / `:支出` : 支出明細のみ
 * `:i` / `:収入` : 収入明細のみ
 * `:tr` / `:振替` : 口座間振替のみ
 
-* **特殊コマンド**:
-* `:r` / `:refresh` : **キャッシュ強制更新**（スマホ入力分などの即時同期）
+**特殊コマンド**:
+* `:r` / `:refresh` : **キャッシュ強制更新**（スマホ入力分などの即時同期） ※入力後Enter
 * `:g` / `:genre` : カテゴリ名・ジャンル名フィールドのみを対象に絞り込み
 * `:s` / `:shop` : 店舗・場所名フィールドのみを対象に絞り込み
 * `:a` / `:account` : 口座名フィールドのみを対象に絞り込み
 * `:memo` : メモ欄のみを対象に絞り込み
 
-* **使用例**:
+**使用例**:
 * `zaim Kyash :m` ➔ 今月の「Kyash」に関連する明細一覧
 * `zaim :tr :1w` ➔ 直近7日間の口座移動履歴
 * `zaim :r` ➔ ローカルキャッシュを破棄して最新データを再取得
@@ -1349,27 +1527,39 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 #### 最上段リアルタイムサマリー
 検索結果の最上部（1〜2行目）には、現在の絞り込み条件に応じた集計情報や今月の見込み収支がリアルタイム表示されます。最上段サマリーを選択した状態で修飾キーを押すことで、一括データ出力が発動します。
 
+#### 【エイリアス機能（検索ワード短縮）】
+よく使う検索条件やコマンドの組み合わせを短縮記号（`_r` や `_d` など）として登録・自動補完できます。
+
+* **設定方法**: Alfred のワークフロー設定画面（`Configure Workflow...` ➔ `Environment Variables`）で `ALIAS_` から始まる変数を追加します。
+
+* **設定例**:
+  * **`ALIAS_R`** = `revolut :tr` （使用例: `zaim _r` ➔ Revolutの振替履歴を検索）
+  * **`ALIAS_D`** = `期限 土産` （使用例: `zaim _d` ➔ メモ等の「期限」「土産」を検索）
+  * **`ALIAS_L`** = `昼食 :p :m` （使用例: `zaim _l` ➔ 今月の昼食支出一覧を検索）
+
+* **補完ガイド表示（Tab 補完）**: 検索窓に `zaim _` と入力すると、登録済みのエイリアス一覧（例: `エイリアス: _r ➔ revolut :tr`）が候補に並びます。目的の項目を選択して `Tab` キーを押すと、展開後の検索構文が入力窓に自動挿入されます。
+
 ---
 
 ### 4. 修飾キーによる3系統データ出力（Export &amp; Integration）
 
 検索画面で最上段のサマリー行を選択し、以下の修飾キーで一括出力・連携します。
 
-* **`Command + Enter`**: **汎用テキスト形式**
+**`Command + Enter`**: **汎用テキスト形式**
 * Text View 起動。閲覧・コピーが可能で、さらに `Enter` を押すと Universal Action が起動し他のアプリへ流せます。
 
-* **`Option + Enter`**: **Zaim形式 CSV**
+**`Option + Enter`**: **Zaim形式 CSV**
 * デスクトップへ自動保存。`日付,方法,カテゴリ...` の Zaim 公式インポート対応形式。Excel 分析や再取り込み用。
 
-* **`Command + Option + Enter`**: **RTM タスク形式（参考機能）**
+**`Command + Option + Enter`**: **RTM タスク形式（参考機能）**
 * Text View 起動（`Enter` で Universal Action 接続）。期限文字列を自動判定しタスク構文へ変換。
 
 #### RTM構文パース仕様（Command + Option + Enter）※参考機能
 メモ欄に「`8/18期限`」などのテキストが含まれている場合、自動的に期日フラグ `^` と指定タグに分解・整形します。
 *(※ Remember The Milk 以外の各種タスク管理サービスやリマインダーアプリへの応用・連携にも活用できます)*
 
-* **入力メモ例**: `鶏卵 西友PB 6個 8/18期限 PayPay`
-* **変換後出力**: `鶏卵 西友PB 6個 ^8/18 #賞味期限 #食材`
+* **入力メモ例**: `鶏卵 6個 8/18期限 PayPayカード`
+* **変換後出力**: `鶏卵 6個 ^8/18 #賞味期限 #食材`
 *(※ タグ指定が不要な場合は、スクリプト上部の `RTM_DEFAULT_TAGS = ""` に変更することでタグなし出力も可能)*
 
 ---
@@ -1378,12 +1568,15 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 
 検索結果から個別の明細を選択して `Enter` を押すと、詳細画面へ移動して各項目をインライン編集できます。
 
+※振替の口座変更は未実装です。
+
 * 📝 **メモ**: `Enter` で入力ウィンドウが開き、メモを上書き変更。
-* 💴 **金額**: `Enter` で入力ウィンドウが開き、金額を変更。
+* 💴 **金額**: `Enter` で金額入力窓（`zaim-picker`）が起動して、金額を変更(消費税計算機能あり)。
 * 📅 **日付**: `Enter` で入力ウィンドウが開き、日付（YYYY-MM-DD）を変更。
 * 📍 **場所**: `Enter` で入力ウィンドウが開き、店舗・場所名を変更（振替時は非表示）。
 * 📂 **カテゴリ**: `Enter` でカテゴリ選択ピッカー（`zaim-picker`）が起動して選択（振替時は非表示）。
 * 💳 **口座**: `Enter` で口座選択ピッカー（`zaim-picker`）が起動して変更。
+* 📋 **複製**: `Enter` でこの明細を複製します（今日の日付で作成）
 
 #### カテゴリピッカーの検索仕様
 * 初期状態では現在選択されているカテゴリ名が検索窓に入力されており、候補リストの最上部には現在設定中の項目が `✔` マーク付きで表示されます。
@@ -1422,7 +1615,7 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 		<key>014C4DE2-A38A-43E9-BB69-FC67EDCD8E61</key>
 		<dict>
 			<key>xpos</key>
-			<real>790</real>
+			<real>800</real>
 			<key>ypos</key>
 			<real>145</real>
 		</dict>
@@ -1436,14 +1629,14 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 		<key>074E35B9-485E-4F9D-94BB-23F2899FFE2D</key>
 		<dict>
 			<key>xpos</key>
-			<real>625</real>
+			<real>635</real>
 			<key>ypos</key>
 			<real>15</real>
 		</dict>
 		<key>07AD3BAC-3286-4B4A-9F24-23FE5900AA23</key>
 		<dict>
 			<key>xpos</key>
-			<real>955</real>
+			<real>960</real>
 			<key>ypos</key>
 			<real>435</real>
 		</dict>
@@ -1468,10 +1661,17 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 			<key>ypos</key>
 			<real>740</real>
 		</dict>
+		<key>44B5E4D6-EA8E-47DE-A37A-9AA61B75A610</key>
+		<dict>
+			<key>xpos</key>
+			<real>815</real>
+			<key>ypos</key>
+			<real>565</real>
+		</dict>
 		<key>55AA16D8-5CBC-4563-B66F-BA56485213FA</key>
 		<dict>
 			<key>xpos</key>
-			<real>790</real>
+			<real>800</real>
 			<key>ypos</key>
 			<real>300</real>
 		</dict>
@@ -1484,10 +1684,17 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 			<key>ypos</key>
 			<real>435</real>
 		</dict>
+		<key>6B02E1D1-4486-4482-83C2-B4DA2C2BDF1E</key>
+		<dict>
+			<key>xpos</key>
+			<real>510</real>
+			<key>ypos</key>
+			<real>190</real>
+		</dict>
 		<key>70DAB407-A977-4022-9506-FF67B8FDCD0C</key>
 		<dict>
 			<key>xpos</key>
-			<real>625</real>
+			<real>635</real>
 			<key>ypos</key>
 			<real>145</real>
 		</dict>
@@ -1515,7 +1722,7 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 		<key>78D3B396-B625-45DC-8824-E669800338DA</key>
 		<dict>
 			<key>xpos</key>
-			<real>260</real>
+			<real>250</real>
 			<key>ypos</key>
 			<real>165</real>
 		</dict>
@@ -1545,14 +1752,14 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 		<key>913A6180-9D2E-4DA6-BB03-1BFDA1EE2032</key>
 		<dict>
 			<key>xpos</key>
-			<real>385</real>
+			<real>340</real>
 			<key>ypos</key>
 			<real>190</real>
 		</dict>
 		<key>A1EC336B-742A-4CC8-A574-8DBDDB703B35</key>
 		<dict>
 			<key>xpos</key>
-			<real>955</real>
+			<real>960</real>
 			<key>ypos</key>
 			<real>300</real>
 		</dict>
@@ -1580,9 +1787,9 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 		<key>C3EB94B5-E326-4A16-A771-D103AC2353B2</key>
 		<dict>
 			<key>xpos</key>
-			<real>625</real>
+			<real>640</real>
 			<key>ypos</key>
-			<real>435</real>
+			<real>430</real>
 		</dict>
 		<key>C683E11C-F572-4452-B9B4-6F6305BCE6B6</key>
 		<dict>
@@ -1608,9 +1815,9 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 		<key>D5810E8D-6323-459C-AF56-789E06ABAF00</key>
 		<dict>
 			<key>xpos</key>
-			<real>620</real>
+			<real>635</real>
 			<key>ypos</key>
-			<real>300</real>
+			<real>270</real>
 		</dict>
 		<key>DF256339-E5B1-42F3-87B2-B1E0D082D211</key>
 		<dict>
@@ -1631,9 +1838,16 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 		<key>E7E4180C-A08A-4459-9B86-D65B6DA2B01F</key>
 		<dict>
 			<key>xpos</key>
-			<real>790</real>
+			<real>800</real>
 			<key>ypos</key>
 			<real>435</real>
+		</dict>
+		<key>EA7CA4F7-418D-4EE6-8B51-ACB439B9CB72</key>
+		<dict>
+			<key>xpos</key>
+			<real>65</real>
+			<key>ypos</key>
+			<real>300</real>
 		</dict>
 		<key>EF6E4FF5-D17C-499C-9836-4A067582F9B1</key>
 		<dict>
@@ -1641,6 +1855,13 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 			<real>230</real>
 			<key>ypos</key>
 			<real>740</real>
+		</dict>
+		<key>F0FC1709-EA18-438F-8127-2CD6FBEB8694</key>
+		<dict>
+			<key>xpos</key>
+			<real>465</real>
+			<key>ypos</key>
+			<real>220</real>
 		</dict>
 		<key>FA1E36AA-2101-41C0-ACC5-A2F03BE6C22B</key>
 		<dict>
@@ -1652,8 +1873,19 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 	</dict>
 	<key>userconfigurationconfig</key>
 	<array/>
+	<key>variables</key>
+	<dict>
+		<key>ALIAS_A</key>
+		<string>ANA Pay :p</string>
+		<key>ALIAS_R</key>
+		<string>revolut :tr</string>
+		<key>ALIAS_V</key>
+		<string>野菜 :m</string>
+	</dict>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
-	<string>1.2.0</string>
+	<string>1.0.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/juntsuda/alfred-zaim-workflow</string>
 </dict>

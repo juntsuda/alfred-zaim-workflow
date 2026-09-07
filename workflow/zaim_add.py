@@ -11,12 +11,21 @@ from zaim_api import zaim_request
 # ==============================================================================
 # 1. パス & 定数定義
 # ==============================================================================
+# --- 永続データ用 (config.json 等) ---
 data_dir = os.environ.get("alfred_workflow_data")
 if not data_dir:
-  BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-  data_dir = BASE_DIR
+  data_dir = os.path.dirname(os.path.abspath(__file__))
+os.makedirs(data_dir, exist_ok=True)
 
-CACHE_MONEY_FILE = os.path.join(data_dir, "zaim_money_cache.json")
+# --- 一時キャッシュ用 (money キャッシュ等) ---
+cache_dir = os.environ.get("alfred_workflow_cache")
+if not cache_dir:
+  cache_dir = data_dir  # 環境変数がない場合のフォールバック
+os.makedirs(cache_dir, exist_ok=True)
+
+# キャッシュファイルは cache_dir 配下に配置
+CACHE_MONEY_FILE = os.path.join(cache_dir, "zaim_money_cache.json")
+
 
 DEFAULT_CATEGORY_ID = 4834408
 DEFAULT_GENRE_ID = 22560320

@@ -13,18 +13,24 @@ import unicodedata
 from zaim_api import zaim_request
 
 # ==============================================================================
-# 1. パス & キャッシュ設定 (alfred_workflow_data 優先)
+# 1. パス & 定数定義
 # ==============================================================================
+# --- 永続データ用 (config.json 等) ---
 data_dir = os.environ.get("alfred_workflow_data")
 if not data_dir:
-  BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-  data_dir = BASE_DIR
+  data_dir = os.path.dirname(os.path.abspath(__file__))
+os.makedirs(data_dir, exist_ok=True)
 
-LOCAL_CACHE_DIR = data_dir
-os.makedirs(LOCAL_CACHE_DIR, exist_ok=True)
+# --- 一時キャッシュ用 (money キャッシュ等) ---
+cache_dir = os.environ.get("alfred_workflow_cache")
+if not cache_dir:
+  cache_dir = data_dir  # 環境変数がない場合のフォールバック
+os.makedirs(cache_dir, exist_ok=True)
 
-CACHE_FILE = os.path.join(LOCAL_CACHE_DIR, "zaim_master_cache.json")
-CACHE_MONEY_FILE = os.path.join(LOCAL_CACHE_DIR, "zaim_money_cache.json")
+# キャッシュファイルは cache_dir 配下に配置
+CACHE_FILE = os.path.join(cache_dir, "zaim_master_cache.json")
+CACHE_MONEY_FILE = os.path.join(cache_dir, "zaim_money_cache.json")
+
 
 DEFAULT_DAYS = 90
 RTM_DEFAULT_TAGS = "#賞味期限 #食材"
@@ -118,6 +124,13 @@ for token in tokens:
       field_target = "account"
     elif token_lower in [":memo", ":comment", ":メモ"]:
       field_target = "memo"
+  elif re.match(r"^\d{4}-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}$", token_lower):
+    parts = token_lower.split("-")
+    d1 = f"{parts[0]}-{parts[1]}-{parts[2]}"
+    d2 = f"{parts[3]}-{parts[4]}-{parts[5]}"
+    start_date_filter, end_date_filter = sorted([d1, d2])
+  elif re.match(r"^\d{4}-\d{2}-\d{2}$", token_lower):
+    start_date_filter = end_date_filter = token_lower
   else:
     keywords.append(token_lower)
 

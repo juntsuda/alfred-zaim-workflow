@@ -38,36 +38,36 @@ def normalize_text(text: str) -> str:
 
 
 def send_oauth_post(url, oauth_params, post_data=None):
-    """OAuth 1.0a 認証用の POST リクエスト（フォームデコードレスポンス用）"""
-    if post_data is None:
-        post_data = {}
+  """OAuth 1.0a 認証用の POST リクエスト（フォームデコードレスポンス用）"""
+  if post_data is None:
+    post_data = {}
 
-    auth_header = generate_oauth_header(
-        url=url,
-        method="POST",
-        params={**oauth_params, **post_data},
-        consumer_key=oauth_params.get("consumer_key", ""),
-        consumer_secret=oauth_params.get("consumer_secret", ""),
-        token=oauth_params.get("token", ""),
-        token_secret=oauth_params.get("token_secret", ""),
-    )
+  # params には oauth_params を混ぜず、純粋な post_data のみを渡します
+  auth_header = generate_oauth_header(
+      url=url,
+      method="POST",
+      params=post_data,  # ★ ここを post_data のみに修正！
+      consumer_key=oauth_params.get("consumer_key", ""),
+      consumer_secret=oauth_params.get("consumer_secret", ""),
+      token=oauth_params.get("token", ""),
+      token_secret=oauth_params.get("token_secret", ""),
+  )
 
-    data_encoded = urllib.parse.urlencode(post_data).encode("utf-8")
-    req = urllib.request.Request(
-        url,
-        data=data_encoded,
-        headers={
-            "Authorization": auth_header,
-            "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": "Alfred-Zaim-Workflow/1.0",
-        },
-        method="POST",
-    )
+  data_encoded = urllib.parse.urlencode(post_data).encode("utf-8")
+  req = urllib.request.Request(
+      url,
+      data=data_encoded,
+      headers={
+          "Authorization": auth_header,
+          "Content-Type": "application/x-www-form-urlencoded",
+          "User-Agent": "Alfred-Zaim-Workflow/1.0",
+      },
+      method="POST",
+  )
 
-    with urllib.request.urlopen(req, timeout=10) as response:
-        res_body = response.read().decode("utf-8")
-        # レスポンス (oauth_token=xxx&oauth_token_secret=yyy...) を辞書に変換
-        return dict(urllib.parse.parse_qsl(res_body))
+  with urllib.request.urlopen(req, timeout=10) as response:
+    res_body = response.read().decode("utf-8")
+    return dict(urllib.parse.parse_qsl(res_body))
 
 
 # ==============================================================================

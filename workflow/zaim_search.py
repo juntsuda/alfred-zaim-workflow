@@ -5,24 +5,49 @@ import json
 import os
 import sys
 import time
+import re
 import unicodedata
 
 # 共通API通信モジュールのインポート
 from zaim_api import zaim_request
 
 # ==============================================================================
-# 1. パス & キャッシュ設定 (alfred_workflow_data 優先)
+# 1. パス & キャッシュ設定
 # ==============================================================================
+# --- 永続データ用 (config.json) ---
 data_dir = os.environ.get("alfred_workflow_data")
 if not data_dir:
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    data_dir = BASE_DIR
+  data_dir = os.path.dirname(os.path.abspath(__file__))
+os.makedirs(data_dir, exist_ok=True)
 
-LOCAL_CACHE_DIR = data_dir
-os.makedirs(LOCAL_CACHE_DIR, exist_ok=True)
+# ★ config.json のパスチェック
+CONFIG_FILE = os.path.join(data_dir, "config.json")
+if not os.path.exists(CONFIG_FILE):
+  # Terminal 実行か Alfred (Script Filter) 実行かで分岐、または Script Filter 前提で JSON 出力
+  print(
+      json.dumps(
+          {
+              "items": [{
+                  "title": "設定ファイル (config.json) が見つかりません",
+                  "subtitle": (
+                      "初回設定が必要です。auth-zaim を実行して認証を行ってください"
+                  ),
+                  "valid": False,
+              }]
+          },
+          ensure_ascii=False,
+      )
+  )
+  sys.exit(0)
 
-CACHE_FILE = os.path.join(LOCAL_CACHE_DIR, "zaim_master_cache.json")
-CACHE_MONEY_FILE = os.path.join(LOCAL_CACHE_DIR, "zaim_money_cache.json")
+# --- 一時キャッシュ用 (master / money キャッシュ) ---
+cache_dir = os.environ.get("alfred_workflow_cache")
+if not cache_dir:
+  cache_dir = data_dir  # フォールバック
+os.makedirs(cache_dir, exist_ok=True)
+
+CACHE_FILE = os.path.join(cache_dir, "zaim_master_cache.json")
+CACHE_MONEY_FILE = os.path.join(cache_dir, "zaim_money_cache.json")
 
 # --- 定数設定 (TTL・取得期間等) ---
 CACHE_MASTER_TTL = 86400  # マスターデータキャッシュ保持時間（24時間）
@@ -144,7 +169,39 @@ user_info = master.get(
 raw_query = sys.argv[1] if len(sys.argv) > 1 else ""
 raw_query_norm = normalize_text(raw_query)
 
+# --- ★1. 環境変数から ALIAS_ で始まるものを取得 ---
+aliases = {}
+for env_key, env_val in os.environ.items():
+  if env_key.startswith("ALIAS_") and env_val.strip():
+    alias_name = f"_{env_key[6:].lower()}"  # ALIAS_R -> _r
+    aliases[alias_name] = env_val.strip()
+
+# --- ★2. エイリアス補完アイテムの先行生成 ---
+# 入力が "_" で始まっている場合、補完リストを準備
+alias_items = []
+if raw_query_norm.startswith("_"):
+  clean_q = raw_query_norm.strip().lower()
+  for a_key, a_val in sorted(aliases.items()):
+    # "_" のみ、または "_r" 等の入力に前方一致した場合
+    if clean_q == "_" or a_key.startswith(clean_q):
+      alias_items.append({
+          "title": f"エイリアス: {a_key} ➔ {a_val}",
+          "subtitle": "💡 Tab キーを押すとこのコマンドに入力窓で展開されます",
+          "autocomplete": f"{a_val} ",
+          "valid": False,
+      })
+
+# --- ★3. クエリ内のエイリアス置換処理 ---
 tokens = raw_query_norm.split()
+expanded_tokens = []
+for token in tokens:
+  token_lower = token.lower()
+  if token_lower in aliases:
+    expanded_tokens.extend(aliases[token_lower].split())
+  else:
+    expanded_tokens.append(token)
+tokens = expanded_tokens
+
 keywords = []
 target_mode = None
 start_date_filter = None
@@ -236,6 +293,20 @@ for token in tokens:
         elif token_lower in [":memo", ":comment", ":メモ"]:
             field_target = "memo"
 
+    # 2. ★新規追加: YYYY-MM-DD-YYYY-MM-DD (範囲指定) の判定
+    elif re.match(r"^\d{4}-\d{2}-\d{2}-\d{4}-\d{2}-\d{2}$", token_lower):
+        parts = token_lower.split("-")
+        d1 = f"{parts[0]}-{parts[1]}-{parts[2]}"
+        d2 = f"{parts[3]}-{parts[4]}-{parts[5]}"
+
+        # ★ 大小比較して小さい方を start、大きい方を end に自動設定
+        start_date_filter, end_date_filter = sorted([d1, d2])
+
+    # 3. ★新規追加: YYYY-MM-DD (単日指定) の判定
+    elif re.match(r"^\d{4}-\d{2}-\d{2}$", token_lower):
+        start_date_filter = end_date_filter = token_lower
+
+    # 4. それ以外は通常検索キーワードとして扱う
     else:
         keywords.append(token_lower)
 
@@ -504,7 +575,20 @@ for item in target_items:
                 "zaim_id": str(rec_id),
                 "zaim_mode": mode,
             },
-            "mods": export_mods,
+            #"mods": export_mods,
+            # ★ Command キーを押した時だけ Large Type (⌘L) のガイド説明を表示
+            "mods": {
+                "cmd": {
+                    "valid": True,
+                    "arg": str(rec_id),
+                    "variables": {
+                        "action_type": "detail",
+                        "zaim_id": str(rec_id),
+                        "zaim_mode": mode,
+                    },
+                    "subtitle": f"🔍 ⌘L で拡大表示 (メモ/詳細): {comment if comment else title_text}",
+                }
+            },
             "text": {
                 "copy": comment if comment else title_text,
                 "largetype": f"{title_text}\n\n{subtitle_text}",
@@ -516,6 +600,7 @@ for item in target_items:
 # ==============================================================================
 # 8. サマリー行 & 今月収支（モチベーション）行の生成
 # ==============================================================================
+
 total_hits = count_payment + count_income + count_transfer
 
 if total_hits > 0:
@@ -610,5 +695,9 @@ else:
             "valid": False,
         }
     )
+
+# ★ 準備しておいたエイリアス補完アイテムがあれば先頭に追加
+if alias_items:
+  items = alias_items + items
 
 print(json.dumps({"items": items}, ensure_ascii=False))

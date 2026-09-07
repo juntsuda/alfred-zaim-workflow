@@ -8,15 +8,22 @@ import unicodedata
 from zaim_api import zaim_request
 
 # ==============================================================================
-# 1. パス & キャッシュ設定
+# 1. パス & 定数定義
 # ==============================================================================
-# alfred_workflow_data または キャッシュディレクトリの参照
+# --- 永続データ用 (config.json 等) ---
 data_dir = os.environ.get("alfred_workflow_data")
 if not data_dir:
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    data_dir = BASE_DIR
+  data_dir = os.path.dirname(os.path.abspath(__file__))
+os.makedirs(data_dir, exist_ok=True)
 
-CACHE_FILE = os.path.join(data_dir, "zaim_master_cache.json")
+# --- 一時キャッシュ用 (money キャッシュ等) ---
+cache_dir = os.environ.get("alfred_workflow_cache")
+if not cache_dir:
+  cache_dir = data_dir  # 環境変数がない場合のフォールバック
+os.makedirs(cache_dir, exist_ok=True)
+
+# キャッシュファイルは cache_dir 配下に配置
+CACHE_FILE = os.path.join(cache_dir, "zaim_master_cache.json")
 
 
 # ==============================================================================
@@ -100,6 +107,12 @@ target_item = next(
     (item for item in money_list if str(item.get("id")) == target_id), None
 )
 
+# ★★★ ここに1行追加 (Alfred の Debug Log に生 JSON を出力) ★★★
+if target_item:
+  sys.stderr.write(
+      f"\n[DEBUG target_item] {json.dumps(target_item, ensure_ascii=False)}\n\n"
+  )
+  
 if not target_item:
     print(
         json.dumps(
@@ -189,7 +202,7 @@ items.append(
         "arg": str(amount),
         "variables": {
             **base_vars,
-            "zaim_action": "edit_amount",
+            "zaim_action": "select_amount",  # ★ "edit_amount" から "select_amount" に変更！
             "current_val": str(amount),
         },
     }
@@ -213,15 +226,19 @@ if mode != "transfer":
         {
             "title": f"📍 場所: {place if place else '場所未設定'}",
             "subtitle": "Enter を押して場所を変更",
-            "arg": place,
+            "arg": place if place else " ",  # メモと同様、空の場合の保護策として " " を渡すと安全です
+            "text": {
+                "copy": place or "",
+                "largetype": place or "(場所未設定)",
+            },
             "variables": {
                 **base_vars,
-                "zaim_action": "edit_place",
+                "zaim_action": "select_place",  # ★ edit_place から select_place に変更！
                 "current_val": place,
             },
         }
-    )
-
+    )         
+  
 if mode != "transfer":
     cat_label = (
         f"【収入】{cat_disp_name}" if mode == "income" else cat_disp_name
@@ -269,5 +286,65 @@ else:
             },
         }
     )
+
+# ==============================================================================
+# 【複製用 Variables の構築】
+# ※ モードに応じて無関係な口座ID(0等)を完全に排除します
+# ==============================================================================
+cat_id_val = (
+    str(target_item.get("category_id"))
+    if target_item.get("category_id") is not None
+    else ""
+)
+genre_id_val = (
+    str(target_item.get("genre_id"))
+    if target_item.get("genre_id") is not None
+    else ""
+)
+
+# 口座 ID の抽出
+from_id_val = (
+    target_item.get("from_account_id")
+    if target_item.get("from_account_id") is not None
+    else target_item.get("account_id")
+)
+to_id_val = target_item.get("to_account_id")
+
+# ★ 判定: 0 や None はすべて空文字化
+from_id_str = (
+    str(from_id_val)
+    if (from_id_val is not None and str(from_id_val) != "0")
+    else ""
+)
+to_id_str = (
+    str(to_id_val) if (to_id_val is not None and str(to_id_val) != "0") else ""
+)
+
+# ★ 最重要ガード: mode に応じて不要な側の口座IDを完全にクリアする
+if mode == "payment":
+  to_id_str = ""  # 支出に to_account_id は存在しない (渡すと振替と誤認される)
+elif mode == "income":
+  from_id_str = ""  # 収入に from_account_id は存在しない
+
+duplicate_vars = {
+    "zaim_mode": mode,
+    "amount": str(amount),
+    "category_id": cat_id_val,
+    "genre_id": genre_id_val,
+    "from_account_id": from_id_str,
+    "to_account_id": to_id_str,
+    "place": place,
+    "comment": comment,
+    "zaim_action": "duplicate",
+}
+
+items.append({
+    "title": "📋 この明細を複製（今日の日付で新規作成）",
+    "subtitle": (
+        f"Enter で ¥{amount:,} ({cat_disp_name}) を今日の日付で新規記録します"
+    ),
+    "arg": "duplicate",
+    "variables": duplicate_vars,
+})
 
 print(json.dumps({"items": items}, ensure_ascii=False))
