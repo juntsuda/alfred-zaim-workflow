@@ -1,9 +1,21 @@
-# Alfred Zaim Workflow
+# Alfred Zaim Workflow 取扱説明書
 
 Alfred から Zaim への高速記録・検索・集計・各種ツール連携を行うための高度なワークフローです。
 キーボード操作のみで日常の家計管理・店舗メモ・編集・タスク化までを完結させます。
 
 ※主に手動入力メイン、メモ欄をしっかり記入している方向けです
+
+---
+
+### ⚙️ 動作要件（Prerequisites）
+
+本ワークフローを実行するには、以下の環境が必要です。
+
+* **macOS**
+* **Alfred 5**（要 **Alfred Powerpack** ライセンス）
+* **Python 3.x**
+  * macOS 12.3 以降で Python がインストールされていない場合は、Homebrew（`brew install python3`）や Xcode Command Line Tools（`xcode-select --install`）等で導入してください。
+  * ※外部ライブラリ（`pip install`）の追加導入は一切不要です。
 
 ---
 
@@ -64,6 +76,8 @@ Alfred を開き、以下のコマンドで認証コードを送信します。
 ### 3. 履歴閲覧・検索絞り込み（Dashboard）
 
 ショートカットキー（`Option + Command + Z`）または `zaim` コマンドで直近の明細を検索・閲覧します。
+
+検索結果から個別の明細を選択して `Enter` を押すと、詳細画面へ遷移します(詳細画面については後述)。また、Command+Lでメモ欄を拡大表示します。
 
 * **基本構文**: `zaim [検索キーワード] [コマンド]`
 *(※ コマンドとキーワードの入力順序は自由です)*
