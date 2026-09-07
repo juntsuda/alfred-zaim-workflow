@@ -1,56 +1,37 @@
+#!/usr/bin/env python3
 import json
 import os
-import plistlib
 import sys
 import unicodedata
 from datetime import datetime
 
+# 共通API通信モジュールのインポート
+from zaim_api import zaim_request
+
 # ==============================================================================
-# 1. パス & 定数定義 (環境に依存しない動的判定)
+# 1. パス & 定数定義
 # ==============================================================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(BASE_DIR, "lib"))
+data_dir = os.environ.get("alfred_workflow_data")
+if not data_dir:
+  BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+  data_dir = BASE_DIR
 
-from requests_oauthlib import OAuth1Session
+CACHE_MONEY_FILE = os.path.join(data_dir, "zaim_money_cache.json")
 
-# --- Bundle ID の自動判定 ---
-plist_path = os.path.join(BASE_DIR, "info.plist")
-bundle_id = "com.user.zaim"  # 未設定時のフォールバック
-
-if os.path.exists(plist_path):
-  try:
-    with open(plist_path, "rb") as fp:
-      plist = plistlib.load(fp)
-      if plist.get("bundleid"):
-        bundle_id = plist["bundleid"]
-  except Exception:
-    pass
-
-# --- キャッシュ & 設定ファイルの絶対パス指定 ---
-LOCAL_CACHE_DIR = os.path.expanduser(
-    f"~/Library/Caches/com.runningwithcrayons.Alfred/Workflow Data/{bundle_id}"
-)
-os.makedirs(LOCAL_CACHE_DIR, exist_ok=True)
-
-CONFIG_FILE = os.path.join(BASE_DIR, "config.json")
-CACHE_MONEY_FILE = os.path.join(LOCAL_CACHE_DIR, "zaim_money_cache.json")
-
-DEFAULT_CATEGORY_ID = 4834408  # その他支出
-DEFAULT_GENRE_ID = 22560320  # その他
+DEFAULT_CATEGORY_ID = 4834408
+DEFAULT_GENRE_ID = 22560320
 
 
 # ==============================================================================
 # 2. 補助関数 (NFC正規化 & テキストパース)
 # ==============================================================================
 def normalize_text(text: str) -> str:
-  """macOS特有のNFD(濁点分離)をNFCに変換し、トリムを行う"""
   if not text:
     return ""
   return unicodedata.normalize("NFC", text).strip()
 
 
 def parse_line(line_str):
-  """1行のテキストから (amount, comment) をパースして返す"""
   line_str = line_str.strip()
   if not line_str:
     return None, None
@@ -59,7 +40,6 @@ def parse_line(line_str):
   amount_str = parts[0]
   comment = parts[1] if len(parts) > 1 else ""
 
-  # 全角数字を半角数字に変換＆カンマ等の除去
   amount_clean = amount_str.translate(
       str.maketrans("０１２３４５６７８９", "0123456789")
   ).replace(",", "")
@@ -71,27 +51,7 @@ def parse_line(line_str):
 
 
 # ==============================================================================
-# 3. API 認証 & クライアント初期化
-# ==============================================================================
-try:
-  with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-    config = json.load(f)
-except FileNotFoundError:
-  sys.stderr.write(
-      "エラー: config.json が見つかりません。auth-zaim を実行してください。\n"
-  )
-  sys.exit(1)
-
-oauth = OAuth1Session(
-    config["consumer_id"],
-    client_secret=config["consumer_secret"],
-    resource_owner_key=config["access_token"],
-    resource_owner_secret=config["access_token_secret"],
-)
-
-
-# ==============================================================================
-# 4. メイン処理 (登録実行 または プレビュー生成)
+# 3. メイン処理
 # ==============================================================================
 action_mode = os.environ.get("zaim_action")
 
@@ -125,27 +85,22 @@ if action_mode in ["add_post", "add_batch"]:
         "comment": comment,
     }
 
-    res = oauth.post("https://api.zaim.net/v2/home/money/payment", data=payload)
-
-    if res.status_code in [200, 201]:
+    try:
+      res_data = zaim_request(
+          "POST", "https://api.zaim.net/v2/home/money/payment", params=payload
+      )
       success_count += 1
       total_amount += amount
-      res_data = res.json()
       last_new_id = res_data.get("money", {}).get("id")
-    else:
-      sys.stderr.write(
-          f"Zaim API エラー [{res.status_code}]: {res.text} (対象行:"
-          f" '{line}')\n"
-      )
+    except Exception as e:
+      sys.stderr.write(f"Zaim API エラー: {e} (対象行: '{line}')\n")
 
-  # 1件でも登録成功した場合はローカルの明細キャッシュを破棄
   if success_count > 0 and os.path.exists(CACHE_MONEY_FILE):
     try:
       os.remove(CACHE_MONEY_FILE)
     except Exception:
       pass
 
-  # 出力分岐
   if action_mode == "add_post":
     if last_new_id:
       print(str(last_new_id), end="")
